@@ -1,6 +1,6 @@
 // https://leetcode.com/problems/find-the-difference/
 
-function findTheDifference(s: string, t: string): string {
+function findTheDifferenceFirst(s: string, t: string): string {
     const mapFreq = new Map<string, number>();
     for(let i = 0; i < s.length; i++) {
         if(mapFreq.has(s[i])) {
@@ -21,4 +21,18 @@ function findTheDifference(s: string, t: string): string {
             return key;
         }
     }
+};
+
+function findTheDifference(s: string, t: string): string {
+    const map = new Map<string, number>();
+    for(const letter of s) {
+        map.set(letter, map.get(letter) ? map.get(letter) + 1 : 1);
+    }
+    for(const letter of t) {
+        map.set(letter, map.get(letter) - 1);
+        if (isNaN(map.get(letter)) || map.get(letter) < 0) {
+            return letter;
+        }
+    }
+    return "";
 };

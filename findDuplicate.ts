@@ -1,6 +1,6 @@
 // https://leetcode.com/problems/find-the-duplicate-number/
 
-function findDuplicate(nums: number[]): number {
+function findDuplicateBad(nums: number[]): number {
     const mapFreq = new Map<number, number>();
     const set = new Set(nums);
     if (set.size === 1) {
@@ -19,3 +19,21 @@ function findDuplicate(nums: number[]): number {
         }
     }
 };
+
+function findDuplicate(nums: number[]): number {
+    let slow = nums[0];
+    let fast = nums[0];
+
+    do {
+        slow = nums[slow];
+        fast = nums[nums[fast]];
+    } while (slow !== fast);
+
+    slow = nums[0];
+    while (slow !== fast) {
+        slow = nums[slow];
+        fast = nums[fast];
+    }
+
+    return slow;
+}
